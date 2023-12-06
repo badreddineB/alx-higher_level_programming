@@ -1,18 +1,16 @@
 #!/usr/bin/python3
-"""0x0B. Python - Input/Output, task 9. Load, add, save  """
+import sys
+import json
 
-
-from sys import argv
 save_to_json_file = __import__('7-save_to_json_file').save_to_json_file
 load_from_json_file = __import__('8-load_from_json_file').load_from_json_file
 
-argv_edit = argv[1:]
+if __name__ == "__main__":
+    try:
+        json_list = load_from_json_file('add_item.json')
+    except FileNotFoundError:
+        json_list = []
 
-try:
-    content_list = load_from_json_file("add_item.json")
-except:
-    content_list = []
-finally:
-    for arg in argv_edit:
-        content_list.append(arg)
-    save_to_json_file(content_list, "add_item.json")
+    for i in range(1, len(sys.argv)):
+        json_list.append(sys.argv[i])
+    save_to_json_file(json_list, "add_item.json")
